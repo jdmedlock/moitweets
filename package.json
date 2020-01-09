@@ -1,0 +1,19 @@
+{
+  "name": "moitweets",
+  "version": "1.0.0",
+  "description": "Extract public Tweets for a specific Twitter user",
+  "main": "index.js",
+  "scripts": {
+    "create": "node src/createBearerToken.js",
+    "test": "node src/testBearerToken.js"
+  },
+  "keywords": [
+    "Javascript",
+    "Twitter"
+  ],
+  "author": "Jim D. Medlock",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
