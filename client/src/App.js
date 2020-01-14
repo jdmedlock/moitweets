@@ -1,9 +1,10 @@
-import React from 'react';
-import {Helmet} from "react-helmet";
-import './App.css';
-import Copyright from './components/Copyright';
-import InputArea from './containers/InputArea';
-import TopBar from './containers/TopBar';
+import React from 'react'
+import { Helmet } from "react-helmet"
+import './App.css'
+import Copyright from './components/Copyright'
+import InputArea from './containers/InputArea'
+import OutputArea from './containers/OutputArea'
+import TopBar from './containers/TopBar'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
 
       <main>
         <InputArea />
+        <OutputArea />
       </main>
 
       <footer>
