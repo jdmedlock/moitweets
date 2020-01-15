@@ -23,11 +23,12 @@ export default function NameInput(props) {
   const defaultFieldValue = 'Enter your Twitter name'
   const [name, setName] = React.useState(defaultFieldValue)
 
-  // Process a request to cancel the 
+  // Process a request to cancel the entry of the Twitter screen name
   const handleCancel = (event) => {
     setName(defaultFieldValue)
   }
   
+  // Retrieve the tweets posted by the Twitter screen name the user entered
   const handleGetTweets = (event) => {
     console.log("You want to get your tweets?")
   }

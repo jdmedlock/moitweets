@@ -17,20 +17,12 @@ const useStyles = makeStyles(theme => ({
 export default function NameInput() {
   const classes = useStyles();
 
-  const handleCancel = (event) => {
-    console.log("You want to cancel?")
-  }
-  
   const handleSaveTweets = (event) => {
     console.log("You want to save your tweets?")
   }
 
   return (
     <div>
-      <Button className={ classes.moiButton } variant="contained" size="medium"
-        onClick={ handleCancel }>
-        Cancel
-      </Button>
       <Button className={ classes.root } variant="contained" size="medium"color="primary"
         onClick={ handleSaveTweets }>
         Save
