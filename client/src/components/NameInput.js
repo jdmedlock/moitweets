@@ -21,11 +21,11 @@ const useStyles = makeStyles(theme => ({
 export default function NameInput(props) {
   const classes = useStyles()
   const defaultFieldValue = 'Enter your Twitter name'
-  const [name, setName] = React.useState(defaultFieldValue)
+  const [screenName, setScreenName] = React.useState(defaultFieldValue)
 
   // Process a request to cancel the entry of the Twitter screen name
   const handleCancel = (event) => {
-    setName(defaultFieldValue)
+    setScreenName(defaultFieldValue)
   }
   
   // Retrieve the tweets posted by the Twitter screen name the user entered
@@ -35,21 +35,21 @@ export default function NameInput(props) {
   
   // Clear the Twitter screen name field when it comes into focus
   const clickInTwitterName = (event) => {
-    setName('')
+    setScreenName('')
   }
 
   // Update the Twitter screen name when the user types into it
   const changeInTwitterName = (event) => {
-    setName(event.target.value)
+    setScreenName(event.target.value)
   }
 
+  // Intercept the press of the Enter key in the Twitter screen name field
   const keydownInTwitterName = (event) => {
       // 'keypress' event misbehaves on mobile so we track 'Enter' key via 'keydown' event
       if (event.key === 'Enter') {
         event.preventDefault()
         event.stopPropagation()
-        console.log('Enter was pressed')
-        // Invoke callback from props;
+        props.func.updateScreenName(screenName)
       }
   }
 
@@ -61,7 +61,7 @@ export default function NameInput(props) {
           id="filled-required"
           label="Required"
           variant="filled"
-          value={ name }
+          value={ screenName }
           onKeyDown={ keydownInTwitterName }
           onClick={ clickInTwitterName }
           onChange={ changeInTwitterName }
