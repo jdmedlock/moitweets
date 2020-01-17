@@ -8,7 +8,6 @@ import TopBar from './containers/TopBar'
 
 const App = () => {
   const [screenName, setScreenName] = useState(0);
-
   const updateScreenName = (screenName) => {
     console.log(`updating screen name: ${screenName}`)
     setScreenName(screenName)

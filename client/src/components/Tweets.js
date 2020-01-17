@@ -14,12 +14,14 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function NameInput() {
+export default function Tweets(props) {
   const classes = useStyles();
 
   const handleSaveTweets = (event) => {
     console.log("You want to save your tweets?")
   }
+
+  console.log('Tweets props: ', props.screenName.screenName)
 
   return (
     <div>

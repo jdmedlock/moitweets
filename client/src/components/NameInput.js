@@ -28,9 +28,9 @@ export default function NameInput(props) {
     setScreenName(defaultFieldValue)
   }
   
-  // Retrieve the tweets posted by the Twitter screen name the user entered
+  // Update the Twitter screen name when the user clicks the 'Get Tweets' button
   const handleGetTweets = (event) => {
-    console.log("You want to get your tweets?")
+    props.func.updateScreenName(screenName)
   }
   
   // Clear the Twitter screen name field when it comes into focus

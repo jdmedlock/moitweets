@@ -4,13 +4,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Tweets from '../components/Tweets';
 
-export default function OutputArea() {
+export default function OutputArea(props) {
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
-        <Box my={4}>
-          <Tweets />
+        <Box my={ 4 }>
+          <Tweets screenName={ props }/>
         </Box>
       </Container>
     </React.Fragment>
