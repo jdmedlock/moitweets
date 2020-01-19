@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Helmet } from "react-helmet"
 import './App.css'
 import Copyright from './components/Copyright'
@@ -7,11 +7,31 @@ import OutputArea from './containers/OutputArea'
 import TopBar from './containers/TopBar'
 
 const App = () => {
-  const [screenName, setScreenName] = useState(0);
-  const updateScreenName = (screenName) => {
-    console.log(`updating screen name: ${screenName}`)
+  const [screenName, setScreenName] = useState('')
+  const [tweetsJSON, setTweetsJSON] = useState()
+  const [isDataLoaded, setIsDataLoaded] = useState(false)                                                     // second, we initialize a variable by useRef
+
+  const updateScreenName = async (screenName) => {
     setScreenName(screenName)
   }
+
+  function getTweets(screenName) {
+    return new Promise(resolve => {
+      const serverURL = 'http://localhost:3001/gettweets/'+screenName
+      console.log(`serverURL: ${serverURL}`)
+      fetch(serverURL)
+        .then(response => response.json())
+        .then(jsonBody => { 
+          console.log(jsonBody);
+          resolve(jsonBody) 
+        })
+    })
+  }
+
+  useEffect(() => {
+    getTweets(screenName).then(setTweetsJSON)
+    setIsDataLoaded(true)
+  },[screenName])
 
   return (
     <div className="App">
@@ -25,7 +45,11 @@ const App = () => {
 
       <main>
         <InputArea updateScreenName={ updateScreenName } />
-        <OutputArea screenName={ screenName } />
+        { isDataLoaded ? 
+            (<OutputArea screenName={ screenName } tweets={ tweetsJSON } />)
+            :
+            (' ')
+        }
       </main>
 
       <footer>
