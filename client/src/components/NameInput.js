@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: 10,
   },
   moiTextField: {
-    marginTop: 80,
+    marginTop: 60,
   },
 }))
 

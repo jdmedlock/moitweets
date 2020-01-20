@@ -18,20 +18,20 @@ const App = () => {
   function getTweets(screenName) {
     return new Promise(resolve => {
       const serverURL = 'http://localhost:3001/gettweets/'+screenName
-      console.log(`serverURL: ${serverURL}`)
       fetch(serverURL)
         .then(response => response.json())
         .then(jsonBody => { 
-          console.log(jsonBody);
           resolve(jsonBody) 
         })
     })
   }
 
   useEffect(() => {
-    getTweets(screenName).then(setTweetsJSON)
-    setIsDataLoaded(true)
-  },[screenName])
+    if (screenName !== '') {
+      getTweets(screenName).then(setTweetsJSON)
+      setIsDataLoaded(true)
+    }
+  },[screenName, setIsDataLoaded])
 
   return (
     <div className="App">
@@ -45,10 +45,9 @@ const App = () => {
 
       <main>
         <InputArea updateScreenName={ updateScreenName } />
-        { isDataLoaded ? 
-            (<OutputArea screenName={ screenName } tweets={ tweetsJSON } />)
-            :
-            (' ')
+        { isDataLoaded
+            ? (<OutputArea screenName={ screenName } tweets={ tweetsJSON } />)
+            : (' ')
         }
       </main>
 
