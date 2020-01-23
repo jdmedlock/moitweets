@@ -36,7 +36,7 @@ export default function Tweets(props) {
       <Paper style={{maxHeight: 200, overflow: 'auto'}} elevation={ 5 }>
         <Typography className={ classes.moiJSON } paragraph={ true } align='left'>
           { props.tweets !== undefined
-              ? props.tweets.data.map(row => (JSON.stringify(row, null, '\t')))
+              ? props.tweets.data.tweetsJSON.map(row => (JSON.stringify(row, null, '\t')))
               : (' ')
           }
         </Typography>

@@ -28,21 +28,32 @@ const getBearerToken = async () => {
 }
 
 const getTweets = async (twitterName) => {
-  let bearerToken = await getBearerToken()
-  const url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
+  let tweetsJSON;
+  try {
+    let bearerToken = await getBearerToken()
+    tweetsJSON = await request({ 
+      url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
+      method: 'GET',
+      qs:{"screen_name": twitterName},
+      json:true,
+      headers: {
+          "Authorization": "Bearer " + bearerToken
+      },
+      json: true
+    })
+    bearerToken = null
+  }
+  catch (error) {
+    return({ 
+      "statusCode": error.statusCode,
+      "tweetsJSON": [ error.error.errors[0] ], 
+    })
+  }
 
-  const tweetsJSON = await request({ 
-    url: url,
-    method: 'GET',
-    qs:{"screen_name": twitterName},
-    json:true,
-    headers: {
-        "Authorization": "Bearer " + bearerToken
-    },
-    json: true
+  return ({
+    "statusCode": "ok",
+    "tweetsJSON": tweetsJSON,
   })
-  bearerToken = null
-  return tweetsJSON;
 }
 
 module.exports = getTweets
