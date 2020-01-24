@@ -23,6 +23,12 @@ const App = () => {
         .then(jsonBody => { 
           resolve(jsonBody) 
         })
+        .catch(error => {
+          resolve({ data: {
+            "statusCode": 99,
+            "tweetsJSON": [ `Error accessing MoiTweets API to retrieve tweets. error:${error}` ], 
+          }})
+        })
     })
   }
 
