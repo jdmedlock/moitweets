@@ -7,15 +7,18 @@ const request = require("request-promise-native")
  * @returns {String} Twitter API bearer token
  */
 const getBearerToken = async () => {
-  const apiKey = process.env.TWITTER_API_KEY
-  const apiSecret = process.env.TWITTER_API_SECRET
-  const key = apiKey + ":" + apiSecret
+  if (process.env.TWITTER_API_KEY === undefined) {
+    throw new Error("Missing TWITTER_API_KEY environment variable")
+  }
+  if (process.env.TWITTER_API_SECRET === undefined) {
+    throw new Error("Missing TWITTER_API_SECRET environment variable")
+  }
+
+  const key = process.env.TWITTER_API_KEY + ":" + process.env.TWITTER_API_SECRET
   const credentials = new Buffer(key).toString('base64')
 
-  const url = 'https://api.twitter.com/oauth2/token'
-
   const bearerToken = await request({ 
-    url: url,
+    url: 'https://api.twitter.com/oauth2/token',
     method:'POST',
     headers: {
         "Authorization": "Basic " + credentials,
@@ -24,13 +27,15 @@ const getBearerToken = async () => {
     body: "grant_type=client_credentials",
     json: true
   })
-  return  bearerToken.access_token;
+  return bearerToken.access_token;
 }
 
 const getTweets = async (twitterName) => {
   let tweetsJSON;
   try {
+    console.log('point #1')
     let bearerToken = await getBearerToken()
+    console.log('point #2')
     tweetsJSON = await request({ 
       url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
       method: 'GET',
