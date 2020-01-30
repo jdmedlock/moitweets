@@ -16,12 +16,17 @@ const useStyles = makeStyles(theme => ({
   fileChooser: {
     display: 'flex',
     align: 'center',
+    alignItems: 'space-around',
+    margin: 'auto',
+    width: '40%',
   },
-  fileChooserParts: {
-    width: '33%',
+  fileChooserInput: {
+    flex: '1',
+    margin: 'auto',
   },
-  fileChooserInstructions: {
-    width: '50%',
+  fileChooserSelector: {
+    flex: '1',
+    margin: 'auto',
   },
   moiBox: {
     backgroundColor: 'lightgrey',
@@ -90,8 +95,13 @@ export default function Tweets(props) {
       </Paper>
 
       <Box my={ 4 }>
+        <div>
+          <Typography align='center'>
+            Enter OR Choose a file name for your Tweets
+          </Typography>
+        </div>
         <span className={ classes.fileChooser }>
-          <span className={ classes.fileChooserParts }>
+          <span className={ classes.fileChooserInput }>
             <TextField
               required
               id="filled"
@@ -103,13 +113,7 @@ export default function Tweets(props) {
               onChange={ changeInOutputFileName }
             />  
           </span>
-          <span className={ classes.fileChooserInstructions }>
-            <Typography align='center'>
-              Enter OR Choose a file name for your Tweets:
-            </Typography>
-          </span>
-          <span className={ classes.fileChooserParts }>
-            <label for="filechooser">Choose an output file:</label>
+          <span className={ classes.fileChooserSelector }>
             <input type="file"
               id="filechooser" 
               name="filechooser"
