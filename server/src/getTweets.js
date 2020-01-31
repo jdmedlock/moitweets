@@ -33,9 +33,7 @@ const getBearerToken = async () => {
 const getTweets = async (twitterName) => {
   let tweetsJSON;
   try {
-    console.log('point #1')
     let bearerToken = await getBearerToken()
-    console.log('point #2')
     tweetsJSON = await request({ 
       url: 'https://api.twitter.com/1.1/statuses/user_timeline.json',
       method: 'GET',

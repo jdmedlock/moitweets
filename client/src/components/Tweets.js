@@ -13,14 +13,26 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(2),
     },
   },
+  moiButton: {
+    marginTop: 10,
+    marginRight: 10,
+  },
+  tweetsJSON: {
+    fontFamily: '"Courier New", Courier, monospace',
+    marginLeft: 5,
+  },
   fileChooser: {
     display: 'flex',
     align: 'center',
     alignItems: 'space-around',
     margin: 'auto',
-    width: '40%',
+    width: '80%',
   },
   fileChooserInput: {
+    flex: '1',
+    margin: 'auto',
+  },
+  fileChooserSeparator: {
     flex: '1',
     margin: 'auto',
   },
@@ -30,15 +42,6 @@ const useStyles = makeStyles(theme => ({
   },
   moiBox: {
     backgroundColor: 'lightgrey',
-  },
-  moiButton: {
-    marginTop: 10,
-    marginRight: 10,
-  },
-  moiJSON: {
-    fontFamily: '"Courier New", Courier, monospace',
-    marginTop: 5,
-    marginLeft: 5,
   },
 }))
 
@@ -76,17 +79,23 @@ export default function Tweets(props) {
 
   const handleSaveTweets = (event) => {
     const tweets = document.getElementById('tweetsJSON').innerHTML
-    const blob = new Blob([tweets], {type: "text/plain;charset=utf-8"});
-    FileSaver.saveAs(blob, "hello world.txt");
+    const blob = new Blob([tweets], {type: "text/plain;charset=utf-8"})
+    if (outputFileName !== defaultFieldValue) {
+      FileSaver.saveAs(blob, outputFileName)
+      return
+    } 
+    const filePath = document.querySelector('#filechooser')
+    console.log('filePath: ', filePath.value)
+    FileSaver.saveAs(blob, filePath.value)
   }
 
   return (
     <div>
-      <Typography variant="h6" align='left'>
+      <Typography variant="subtitle1" align='left'>
         JSON for { props.screenName }'s Tweets:
       </Typography>
       <Paper style={{maxHeight: 200, overflow: 'auto'}} elevation={ 5 }>
-        <Typography id="tweetsJSON" className={ classes.moiJSON } paragraph={ true } align='left'>
+        <Typography id="tweetsJSON" className={ classes.tweetsJSON } paragraph={ true } align='left'>
           { props.tweets !== undefined
               ? props.tweets.data.tweetsJSON.map(row => (JSON.stringify(row, null, '\t')))
               : (' ')
@@ -95,11 +104,6 @@ export default function Tweets(props) {
       </Paper>
 
       <Box my={ 4 }>
-        <div>
-          <Typography align='center'>
-            Enter OR Choose a file name for your Tweets
-          </Typography>
-        </div>
         <span className={ classes.fileChooser }>
           <span className={ classes.fileChooserInput }>
             <TextField
@@ -112,6 +116,14 @@ export default function Tweets(props) {
               onClick={ clickInOutputFileName }
               onChange={ changeInOutputFileName }
             />  
+          </span>
+          <span className={ classes.fileChooserSeparator }>
+            <Typography variant="subtitle1" align='center'>
+              &lt;--- Enter a file name OR Choose the file  ---&gt;
+            </Typography>
+            <Typography variant="subtitle1" align='center'>
+              your Tweets are to be written to
+            </Typography>
           </span>
           <span className={ classes.fileChooserSelector }>
             <input type="file"
