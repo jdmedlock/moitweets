@@ -24,7 +24,7 @@ export default function InputArea(props) {
       <CssBaseline />
       <Container className={ classes.moiContainer } maxWidth="sm">
         <Box my={ 4 }>
-          <NameInput func={ props }/>
+          <NameInput updateScreenName={ props.updateScreenName }/>
         </Box>
       </Container>
     </React.Fragment>

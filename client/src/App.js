@@ -9,10 +9,11 @@ import TopBar from './containers/TopBar'
 const App = () => {
   const [screenName, setScreenName] = useState('')
   const [tweetsJSON, setTweetsJSON] = useState()
-  const [isDataLoaded, setIsDataLoaded] = useState(false)                                                     // second, we initialize a variable by useRef
+  const [isDataLoaded, setIsDataLoaded] = useState(false)
 
   const updateScreenName = async (screenName) => {
     setScreenName(screenName)
+    setTweetsJSON()
   }
 
   function getTweets(screenName) {
@@ -30,6 +31,11 @@ const App = () => {
           }})
         })
     })
+  }
+
+  function clearTweetsOutput() {
+    setScreenName('')
+    setTweetsJSON()
   }
 
   useEffect(() => {
@@ -52,7 +58,8 @@ const App = () => {
       <main>
         <InputArea updateScreenName={ updateScreenName } />
         { isDataLoaded
-            ? (<OutputArea screenName={ screenName } tweets={ tweetsJSON } />)
+            ? (<OutputArea screenName={ screenName } tweets={ tweetsJSON }
+                clearTweetsOutput={ clearTweetsOutput } />)
             : (' ')
         }
       </main>

@@ -46,12 +46,9 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Tweets(props) {
-  console.log('Tweets props: ', props);
   const defaultFieldValue = 'Enter file name:'
   const [outputFileName, setOutputFileName] = React.useState(defaultFieldValue)
-
   const classes = useStyles();
-  
 
   // Clear the output file name field when it comes into focus
   const clickInOutputFileName = (event) => {
@@ -73,20 +70,27 @@ export default function Tweets(props) {
     }
   }
 
-  const handleCancel = (event) => {
-    console.log('cancel button pressed')
+  const handleClear = (event) => {
+    setOutputFileName(defaultFieldValue)
+    if (props.clearTweetsOutput !== undefined) {
+      props.clearTweetsOutput()
+    } 
   }
 
   const handleSaveTweets = (event) => {
+    let jsonFileName = '';
     const tweets = document.getElementById('tweetsJSON').innerHTML
     const blob = new Blob([tweets], {type: "text/plain;charset=utf-8"})
-    if (outputFileName !== defaultFieldValue) {
-      FileSaver.saveAs(blob, outputFileName)
-      return
-    } 
-    const filePath = document.querySelector('#filechooser')
-    console.log('filePath: ', filePath.value)
-    FileSaver.saveAs(blob, filePath.value)
+
+    if (outputFileName === defaultFieldValue) {
+      // Retrieve the output file name through a chooser
+      const filePath = document.querySelector('#filechooser')
+      jsonFileName = filePath.value.split('C:\\fakepath\\')[1] // Remove the fake file path added by the browser
+    } else {
+      // Use the user entered output file name
+      jsonFileName = outputFileName
+    }
+    FileSaver.saveAs(blob, jsonFileName)
   }
 
   return (
@@ -136,8 +140,8 @@ export default function Tweets(props) {
 
         <div>
           <Button className={ classes.moiButton } variant="contained" 
-            size="medium" onClick={ handleCancel }>
-            Cancel
+            size="medium" onClick={ handleClear }>
+            Clear
           </Button>
           <Button className={ classes.moiButton } variant="contained" 
             size="medium" color="primary" onClick={ handleSaveTweets }>

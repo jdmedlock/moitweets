@@ -24,7 +24,8 @@ export default function OutputArea(props) {
       <CssBaseline />
       <Container className={ classes.moiContainer } maxWidth="lg">
         <Box my={ 4 }>
-          <Tweets screenName={ props.screenName } tweets={ props.tweets } />
+          <Tweets screenName={ props.screenName } tweets={ props.tweets } 
+            clearTweetsOutput={ props.clearTweetsOutput } />
         </Box>
       </Container>
     </React.Fragment>

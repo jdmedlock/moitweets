@@ -24,8 +24,11 @@ export default function NameInput(props) {
   const [screenName, setScreenName] = React.useState(defaultFieldValue)
 
   // Process a request to cancel the entry of the Twitter screen name
-  const handleCancel = (event) => {
+  const handleClear = (event) => {
     setScreenName(defaultFieldValue)
+    if (props.updateScreenName !== undefined) {
+      props.updateScreenName('')
+    }
   }
   
   // Update the Twitter screen name when the user clicks the 'Get Tweets' button
@@ -49,7 +52,7 @@ export default function NameInput(props) {
       if (event.key === 'Enter') {
         event.preventDefault()
         event.stopPropagation()
-        props.func.updateScreenName(screenName)
+        props.updateScreenName(screenName)
       }
   }
 
@@ -69,8 +72,8 @@ export default function NameInput(props) {
       </div>
       <div>
         <Button className={ classes.moiButton } variant="contained" size="medium"
-          onClick={ handleCancel }>
-          Cancel
+          onClick={ handleClear }>
+          Clear
         </Button>
         <Button className={ classes.root } variant="contained" size="medium"color="primary"
           onClick={ handleGetTweets }>
