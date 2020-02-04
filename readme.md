@@ -1,4 +1,4 @@
-# MoiTweets - Extract all public Tweets for a given Twitter screen name
+# MoiTweets - Extract public Tweets for a given Twitter user
 
 ## Table of Contents
 
@@ -16,6 +16,8 @@ Given a Twitter user name MoiTweets generates a local file containing a JSON
 representation of all available public Tweets for that individual. More 
 information about the contents of this file can be found on the 
 [Twitter Developer site](https://developer.twitter.com/en/docs/tweets/timelines/api-reference/get-statuses-home_timeline). 
+
+![Tier 2 MoiTweets](./docs/MoiTweets.gif)
 
 ## Running MoiTweets
 
