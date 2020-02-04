@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles'
-import NameInput from '../components/NameInput';
+import Tweets from '../components/Tweets';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,14 +17,15 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function InputArea(props) {
+export default function OutputArea(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container className={ classes.moiContainer } maxWidth="sm">
+      <Container className={ classes.moiContainer } maxWidth="lg">
         <Box my={ 4 }>
-          <NameInput updateScreenName={ props.updateScreenName }/>
+          <Tweets screenName={ props.screenName } tweets={ props.tweets } 
+            clearTweetsOutput={ props.clearTweetsOutput } />
         </Box>
       </Container>
     </React.Fragment>
